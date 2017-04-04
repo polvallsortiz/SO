@@ -1,0 +1,125 @@
+Sesión 3: Procesos
+PREGUNTA 19. ¿Cómo puede saber un proceso el pid de sus hijos? ¿Qué llamada pueden utilizar los procesos para consultar su propio PID?
+	Lo puede saber a la hora de crearlo, al ejecutar la función fork(). Solamente hace falta igualar la funcion a un entero ya declarado i entonces el padre vera su PID. 
+	Los procesos pueden consultar su PID con la llamada getpid().
+PREGUNTA 20. ¿En qué casos se ejecutará cualquier código que aparezca justo después de la llamada execlp (En cualquier caso/ En caso que el execlp se ejecute de forma correcta/ En caso que el exclp falle)?
+	En caso de que el execlp falle.
+PREGUNTA 21. ¿Qué directorios hay dentro de /proc/PID_PADRE? ¿Qué opción de ls has usado?
+	attr/  cwd/  fd/  fdinfo/  map_files/  net/  ns/  root/  task/
+	Necesitamos la opción "-d */".
+	
+PREGUNTA 22. Apunta el contenido de los ficheros status y cmdline. Compara el contenido del fichero environ con el resultado del comando env (fíjate por ejemplo en la variable PATH y la variable PWD) ¿Qué relación hay? Busca en el contenido del fichero status el estado en el que se encuentra el proceso y apúntalo en el fichero de respuestas. 
+	Comparten la primera linea del env con la unica del environ. Lo comparten. 
+	
+	Name:	myPS
+State:	R (running)
+Tgid:	10576
+Ngid:	0
+Pid:	10576
+PPid:	1840
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	256
+Groups:	4 24 27 30 46 113 128 1000 
+NStgid:	10576
+NSpid:	10576
+NSpgid:	10576
+NSsid:	1840
+VmPeak:	    4316 kB
+VmSize:	    4220 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	     716 kB
+VmRSS:	     716 kB
+VmData:	      56 kB
+VmStk:	     136 kB
+VmExe:	       4 kB
+VmLib:	    1936 kB
+VmPTE:	      28 kB
+VmPMD:	      12 kB
+VmSwap:	       0 kB
+Threads:	1
+SigQ:	0/30847
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000000000
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000003fffffffff
+Seccomp:	0
+Cpus_allowed:	0f
+Cpus_allowed_list:	0-3
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	0
+nonvoluntary_ctxt_switches:	1294
+
+	
+PREGUNTA 23. ¿A qué ficheros "apuntan" los ficheros cwd y exe? ¿Cuál crees que es el significado de cwd y exe?
+	CWD --> A todos los ficheros del directorio de trabajo. (Current Working Directory).
+	EXE -->  . (Executable).
+	
+PREGUNTA 24. ¿Puedes mostrar el contenido de los ficheros environ, status y cmdline del proceso hijo? ¿En qué estado se encuentra el hijo?
+	environ : XDG_VTNR=7
+	status:
+	Name:	myPS
+State:	R (running)
+Tgid:	10577
+Ngid:	0
+Pid:	10577
+PPid:	10576
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	64
+Groups:	4 24 27 30 46 113 128 1000 
+NStgid:	10577
+NSpid:	10577
+NSpgid:	10576
+NSsid:	1840
+VmPeak:	    4220 kB
+VmSize:	    4220 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	      88 kB
+VmRSS:	      88 kB
+VmData:	      56 kB
+VmStk:	     136 kB
+VmExe:	       4 kB
+VmLib:	    1936 kB
+VmPTE:	      28 kB
+VmPMD:	      12 kB
+VmSwap:	       0 kB
+Threads:	1
+SigQ:	0/30847
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	0000000000000000
+SigIgn:	0000000000000000
+SigCgt:	0000000000000000
+CapInh:	0000000000000000
+CapPrm:	0000000000000000
+CapEff:	0000000000000000
+CapBnd:	0000003fffffffff
+Seccomp:	0
+Cpus_allowed:	0f
+Cpus_allowed_list:	0-3
+Mems_allowed:	00000000,00000001
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	0
+nonvoluntary_ctxt_switches:	1700
+
+	cmdline:./myPS
+	
+PREGUNTA 25. Comprueba el fichero status de /proc/PID_PADRE /proc/PID_HIJO(s). ¿En qué estado está el proceso padre? ¿En qué estado están los hijos? 
+	Tanto el padre como el hijo estan en ejecución R(running).
+	
+PREGUNTA	26. Comprueba	 el	 fichero	 status	 de	 /proc/PID_PADRE.	 ¿En	 qué	 estado	 está	 el	proceso	padre?
+	State:	S (sleeping)
+
+PREGUNTA 27. ¿Qué has hecho para guardar la salida de las ejecuciones de myPS3?
+	Con la opción "> nombre_fichero_out".

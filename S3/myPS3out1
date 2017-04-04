@@ -1,0 +1,7 @@
+Soy el proceso padre con pid: 14403
+Soy el proceso hijo con pid: 14404 con parametro user1
+Soy el proceso hijo con pid: 14405 con parametro user2
+Soy el proceso hijo con pid: 14407 con parametro user4
+Soy el proceso hijo con pid: 14408 con parametro user5
+Soy el proceso hijo con pid: 14406 con parametro user3
+Soy el proceso hijo con pid: 14409 con parametro user6

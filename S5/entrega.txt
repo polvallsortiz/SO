@@ -1,0 +1,102 @@
+PREGUNTA 34. ¿Qué variables aparecen en	 la	 salida	 del nm	de	
+mem1_dynamic? ¿Qué dirección ocupa cada	una? Indica a que región 
+pertenece cada variable	según la salida	del	nm	y	el	tipo	
+de variable (local o global).
+
+Aparece globalArray, 0000000000601080 es su dirección y pertenece a la
+región bss. Es una variable global.
+
+PREGUNTA 35. Para los dos ejecutables,compilado	estático y dinámico,	
+observa	su	tamaño,	la salida de los comandos nm y objdump ¿En qué se	
+diferencian	los	dos	ejecutables? 
+
+En todo, el estático es mucho mayor al dinámico.
+
+PREGUNTA 36. Observa el contenido del fichero maps del /proc para	cada
+proceso	y apunta para cada región la dirección inicial,	dirección final	
+y etiqueta asociada. ¿Qué diferencia hay entre el maps de cada proceso?
+
+MEM1__DYNAMIC
+00400000-00401000 r-xp 00000000 08:05 745490                             /home/alumne/Desktop/S5/mem1_dynamic
+00600000-00601000 r--p 00000000 08:05 745490                             /home/alumne/Desktop/S5/mem1_dynamic
+00601000-00602000 rw-p 00001000 08:05 745490                             /home/alumne/Desktop/S5/mem1_dynamic
+00602000-00603000 rw-p 00000000 00:00 0 
+00bb0000-00bd2000 rw-p 00000000 00:00 0                                  [heap]
+7f5446688000-7f5446847000 r-xp 00000000 08:05 51368                      /lib/x86_64-linux-gnu/libc-2.23.so
+7f5446847000-7f5446a47000 ---p 001bf000 08:05 51368                      /lib/x86_64-linux-gnu/libc-2.23.so
+7f5446a47000-7f5446a4b000 r--p 001bf000 08:05 51368                      /lib/x86_64-linux-gnu/libc-2.23.so
+7f5446a4b000-7f5446a4d000 rw-p 001c3000 08:05 51368                      /lib/x86_64-linux-gnu/libc-2.23.so
+7f5446a4d000-7f5446a51000 rw-p 00000000 00:00 0 
+7f5446a51000-7f5446a77000 r-xp 00000000 08:05 145010                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f5446c5b000-7f5446c5e000 rw-p 00000000 00:00 0 
+7f5446c74000-7f5446c76000 rw-p 00000000 00:00 0 
+7f5446c76000-7f5446c77000 r--p 00025000 08:05 145010                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f5446c77000-7f5446c78000 rw-p 00026000 08:05 145010                     /lib/x86_64-linux-gnu/ld-2.23.so
+7f5446c78000-7f5446c79000 rw-p 00000000 00:00 0 
+7ffd1e452000-7ffd1e473000 rw-p 00000000 00:00 0                          [stack]
+7ffd1e54f000-7ffd1e551000 r--p 00000000 00:00 0                          [vvar]
+7ffd1e551000-7ffd1e553000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+MEM1_STATIC
+00400000-004c9000 r-xp 00000000 08:05 745497                             /home/alumne/Desktop/S5/mem1_static
+006c8000-006cb000 rw-p 000c8000 08:05 745497                             /home/alumne/Desktop/S5/mem1_static
+006cb000-006ce000 rw-p 00000000 00:00 0 
+00a43000-00a66000 rw-p 00000000 00:00 0                                  [heap]
+7fffa74c4000-7fffa74e5000 rw-p 00000000 00:00 0                          [stack]
+7fffa75be000-7fffa75c0000 r--p 00000000 00:00 0                          [vvar]
+7fffa75c0000-7fffa75c2000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+PREGUNTA 37. ¿A qué región de las descritas	en el maps pertenece cada	 
+variable y cada	zona reservada con malloc? Apunta la dirección inicial,	
+dirección final	y el nombre	de	la	región.	
+
+  char buff[80];
+  int niterations = DEFAULT_ITERATIONS;
+  int i;
+  char localArray[REGION_SIZE];
+  char *p;
+  Todas las anteriores pertenecen en el stack:
+  7ffd1e452000-7ffd1e473000 [stack]
+  
+  Las zonas reservadas por el malloc pertenecen al heap:
+  7f5446688000-7f5446847000 [heap]
+  
+PREGUNTA 38. Para cada ejecución apunta	el número de mallocs hechos	y	
+la dirección inicial y final del heap que muestra el fichero maps del 
+/proc. ¿Cambia el tamaño según el parámetro	de entrada? ¿Por qué?
+
+PARAMETRO = 3
+		3 mallocs
+		024ac000-024ce000 [heap]
+		
+PARAMETRO = 5
+		5 mallocs
+		02549000-0256b000 [heap]
+		
+PARAMETRO = 100
+		100 mallocs
+		01dab000-01e30000 [heap]
+		
+		Entre los parametros con valor 3 y 5 no hay cambios, mientras 
+		que con 100 mallocs si.
+		
+PREGUNTA 39. ¿Cuál es el tamaño del heap en este caso? Explica los 
+resultados.
+
+	En este caso el heap se encuentra entre 009f2000-00a13000,
+	lo que significa que ocupa 21000, mientras que antes ocupaba
+	85000.
+	
+PREGUNTA 40. Para cada ejecución apunta	el	número de mallocs hechos	
+y la dirección inicial y final del heap que se muestra en el maps	 
+del	 /proc. ¿Cambia el tamaño del heap respecto	al observado en	la	
+pregunta 6?	¿Por qué?	
+	
+	3 - 00653000-00656000 [heap] 
+	5 - 018df000-018e4000 [heap]
+	100 - 020f0000-02154000 [heap]
+	Cambia, con el sbrk es mas pequeño.
+	

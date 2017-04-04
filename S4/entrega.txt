@@ -1,0 +1,9 @@
+1- Aparece el mensaje "Alarm clock" i acaba la ejecución.
+2- No, aparece el mensaje "Killed".
+3- El shell, []
+4- Si es necesario, se ejecutara siempre despues del sigsuspend, al 
+   reanudar la ejecución.
+5- Lo que ocurre es como si pasaran 10 segundos por el hecho del 
+   sigsuspend para la signal alarm. Entonces no funciona como deberia.
+6- Si, excepto la SIGKILL y la SIGSTOP.
+7- 

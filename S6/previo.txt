@@ -1,0 +1,14 @@
+1- Se encuentra en el fichero /proc/[pid]/stat. Los minor page faults
+se muestran en el campo minflt, mientras que los major se encuentran en
+el campo majflt.
+
+2- He ejecutado el comando $vmstat 1. El swap-in se encuentra en la 
+columna si, y el out en la so.
+
+6- FIB 10 -> 0.00user 0.00system 0:00.00elapsed
+   FIB 20 -> 0.00user 0.00system 0:00.00elapsed
+   FIB 30 -> 0.00user 0.00system 0:00.00elapsed
+   FIB 40 -> 0.72user 0.00system 0:00.72elapsed
+   FIB 50 -> 88.70user 0.00system 1:28.70elapsed
+   
+7- El valor de nice es 10
