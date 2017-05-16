@@ -1,0 +1,10 @@
+Sesión 8: Gestión de Entrada/Salida
+PREGUNTA 66. ¿Qué contiene el fichero al final de la ejecución?¿Contiene la salida del padre y del hijo, o sólo la del padre? ¿Cómo se explica ese contenido?
+Contiene las dos, la primera linea de salida "Inicio" se trata la salida del cat del hijo, que se escribe desde el extremo de escriptura de la pipe y se lee en el "cat" del hijo 
+que lo escribe por el canal std. La segunda linea, "Fin" es el padre, por el canal std.
+
+PREGUNTA 67. ¿Acaba el programa padre? ¿y el hijo? ¿Por qué?
+No y no, ninguno de los dos. Porqué el padre esta esperando al hijo para terminar, mientras que el hijo esta esperando más texto de escritura porqué tiene escritores activos.
+
+PREGUNTA 68. Si quisiéramos que el lector también pudiera enviar un mensaje al escritor ¿podríamos utilizar la misma pipe con nombre o deberíamos crear otra? Razona la respuesta.
+Podriamos, pero siempre tendriamos que tener bien sincronizados para no sobreescribir mensajes de la pipe, ya que el buffer seria el mismo.
