@@ -1,3 +1,52 @@
 1-
- ·Con el cmando df con la opción -T que indica el tipo. Estan montados sobre la raíz "/"
- ·
+	1-Con el cmando df con la opción -T que indica el tipo. Estan montados sobre la raíz "/"
+	2-Con el comando df y la opción -i, que muestra los inodos.
+	3-Simplemente con el comando df te lo muestra, pero si quieres saber el espacio inteligible, debes utilizar -H.
+ 
+2- 
+	1-El primero (sl_pr) se trata de un soft link, mientras que (hl_pr) se trata de un hard link. 
+	File: 'pr.txt' regular file Inode:44958514 Links: 2
+	File: 'sl_pr' symbolic link Inode:44958515 Links: 1
+	File: 'hl_pr' regular file Inode:44958514 Links: 2
+	El numero de links es el numero de ficheros que acceden a ese inodo.
+	El hl_pr tiene el mismo inodo, ya que al ser un hard link accede al mismo inodo. En cambio el inodo de sl_pr 
+	contiene el path hasta pr.txt.
+	
+	2-sl_pr
+	cat -> esto es una prueba
+	namei -> f: sl_pr
+			 l sl_pr -> pr.txt
+			 - pr.txt
+	readlink -> pr.txt
+	
+	hl_pr
+	cat -> esto es una prueba
+	namei -> f: hl_pr
+			 - hl_pr
+	readlink -> 
+	
+	Si que existen diferencias, por el simple hecho de ser uno soft y el otro hard link. El cat muestra lo mismo ya que
+	los dos leen el contenido guardado en el inodo creado por pr.txt. El namei muestra el fichero que tratamos, el link (si existe)
+	i lo que hace link. Por esto es diferente, ya que aparece en sl_pr el link en l. Y por ultimo el readlink, es diferente ya que
+	el primero al ser soft tiene link sobre el archivo en si.
+	
+	3-
+	sl_pr:
+	stat -> File: 'sl_pr' -> 'pr.txt' Inode: 44958515  Links: 1
+	cat -> cat: sl_pr: No such file or directory
+	namei -> f: sl_pr
+			 l sl_pr -> pr.txt
+			 pr.txt - No such file or directory
+	readlink -> 
+	
+	hl_pr:
+	stat -> File: 'hl_pr' Inode: 44958514 Links: 1
+	cat -> esto es una prueba
+	namei ->f: hl_pr
+			- hl_pr
+	readlink ->
+	
+	Si, ya que el soft_link pierde la referencia al fichero principal "pr.txt".
+	
+	
+
