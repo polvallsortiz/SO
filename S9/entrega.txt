@@ -1,0 +1,51 @@
+Sesión 9: Sistema de Ficheros
+PREGUNTA 67. Contesta a las siguientes preguntas en el fichero "entrega.txt"
+* ¿Cual/es de los comandos anteriores han dado error al intentar ejecutarlos? Explica porqué.
+	Ha dado error el "ln  $HOME/A  $HOME/A/H". La razón porqué ha pasado se trata de que no se puede hacer un hard link para carpetas, ya que se tratan de ficheros especiales.
+	
+* Explicar el resultado de ejecutar el comando "stat" utilizando como parámetro cada uno de los nombres simbólicos que has creado anteriormente.
+	File: 'D' regular file Inode: 450966      Links: 2   --> Tiene 2 links, por el hecho de tener a si mismo y G.
+	File: 'E' -> '/home/alumne/A' symbolic link Inode: 450967      Links: 1  --> Al ser soft link tiene su propio inodo
+	File: 'F' -> 'D' symbolic link Inode: 450968      Links: 1  --> Al ser soft link tiene inodo propio apuntando a D
+	File: 'G' regular file Inode: 450966      Links: 2  --> Comparte inodo y links con D, ya que son el mismo fichero
+
+* ¿Cuál sería el contenido de los ficheros D, E, F y G? Comenta las diferencias que observas al utilizar los comandos "more" o "cat" para ver el contenido del fichero y el resultado de utilizar el comando "readlink".
+	cat D --> estoy en el directorio A 			readlink D -->
+	cat E --> cat: E: Is a directory			readlink E --> /home/alumne/A
+	cat F --> estoy en el directorio A			readlink F --> D
+	cat G --> estoy en el directorio A			readlink G --> 
+	
+* Escribe en papel los accesos que se realizan cuando se accede a los ficheros: "$HOME/A/F", "$HOME/A/E" y "$HOME/A/G". Ahora compáralos con el resultado que obtienes cuando ejecutas el comando "namei" con cada uno de los ficheros anteriores. ¿Si ejecutas "readlink $HOME/A/F" se realizan los mismos accesos? ¿Cómo influye el hecho de que en unos casos sea una ruta absoluta a un fichero y en otros una ruta relativa?
+	Se producen los mismos accesos.
+	
+* Crea un soft link de un fichero a si mismo (un fichero que no exista previamente). Comenta el resultado de mirar su contenido utilizando el comando "cat". Observa como controla el sistema la existencia de ciclos en el sistema de ficheros. Ejecuta el comando "namei" y comenta su resultado.
+	ln -s P P
+	namei P :
+			f: P
+		 l P -> P
+		   l P -> P
+			 l P -> P
+			   l P -> P
+				 l P -> P
+				   l P -> P
+					 l P -> P
+					   l P -> P
+						 l P -> P
+						   l P -> P
+							 l P -> P
+							   l P -> P
+								 l P -> P
+								   l P -> P
+									 l P -> P
+									   l P -> P
+										 l P -> P
+										   l P -> P
+											 l P -> P
+											   l P -> P
+												 l P -> P
+		namei: P: exceeded limit of symlinks
+	Existe un límite de symlinks, una vez superados salta el error.
+
+PREGUNTA 68. Entrega el fichero append.c.
+PREGUNTA 69. Entrega el fichero invirtiendo_fichero.c.
+PREGUNTA 70. Entrega el fichero insertarx2.c.
